@@ -34,6 +34,6 @@ When you start your ASP.NET Core app, it won't launch an Angular CLI server. The
 
 # Upto
 
-Page 72
+Page 94
 
-Chapter 2
+tsconfig.json
