@@ -7,6 +7,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 * Run: ```dotnet run```
 * visit: https://localhost:5001
 
+## Tests
+* from ClientApp folder
+* ```npm run ng test```
+
 ## Run ng commands
 ```cd ClientApp```
 
