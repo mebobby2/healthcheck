@@ -36,6 +36,33 @@ spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
 
 When you start your ASP.NET Core app, it won't launch an Angular CLI server. The instance you started manually is used instead. This enables it to start and restart faster. It's no longer waiting for Angular CLI to rebuild your client app each time.
 
+## Notes
+### Internet Control Message Protocol (ICMP)
+Is a networking protocol.  It is used to send error messages or to send query messages. You must have heard about "Ping". Ping uses ICMP to send echo request to the target host and get echo reply.
+
+Ping works in the following way: the machine that performs the PING sends one or more ICMP echo request packets to the target host and waits for a reply; if it receives it, it reports the round-trip time of the whole task; otherwise, it time outs and reports a ```host not reachable``` error.
+
+The host not reachable error can be due to a number of possible scenarios, as listed here:
+* The target host is not available.
+* The target host is available, but actively refuses TCP/IP connections of
+any kind.
+* The target host is available and accepts TCP/IP incoming connections, but it has been configured to explicitly refuse ICMP requests and/or not send ICMP echo replies back.
+* The target host is available and properly configured to accept ICMP requests and send echo replies back, but the connection is very slow or hindered by unknown reasons (performance, heavy load, and so on), so the round-trip time takes too long—or even times out.
+
+
+### WAN
+If an enterprise has an office a building in Barcelona, then that is likely a Local Area Network or LAN, as all of the traffic is local and it could be on copper (slow) or fiber (fast).  That same company might have an office in a building in Geneva, and that Geneva traffic would also probably be a LAN, a different LAN than the one in Barcelona.
+
+To go one further, the office in Geneva might be a campus of buildings, and with fiber (fast) as the interconnects, that would, for most people, still be considered a LAN.  Because of the latency and because of the simple routing used.
+
+So LANs tend to be simple,  fairly reliable, and with low latency.  Most applications and users like traffic that is local, because the network component for delay (latency) is low.
+
+Now, if the enterprise wants to link the two offices together in some way, that's where a WAN comes into play.  Because of the distance, WANs
+tend to have higher latency, higher delay, and gosh, they get a bit less reliable.  Most users deal with that OK, but some applications do not.
+
+Beacuse you'll be dealing with 3rd parties, you'll have to introduce one or more routing protocol.  Lots of LAN traffic might not route at all.  A company might use various interior routing protocols (static, RIP, OSPF, EIGRP, ISIS, etc) internally, but in order to talk on a WAN, you'll have to use an exterior routing protocol, and that typically means BGP.
+
+
 # Upto
 
 Page 94
