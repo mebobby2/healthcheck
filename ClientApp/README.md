@@ -36,7 +36,46 @@ spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
 
 When you start your ASP.NET Core app, it won't launch an Angular CLI server. The instance you started manually is used instead. This enables it to start and restart faster. It's no longer waiting for Angular CLI to rebuild your client app each time.
 
-## Notes
+## C# Notes
+### default literal
+You can use the default literal to produce the default value of a type when the compiler can infer the expression type.
+```
+T[] InitializeArray<T>(int length, T initialValue = default)
+{
+    if (length < 0)
+    {
+        return default;
+    }
+
+    var array = new T[length];
+    for (var i = 0; i < length; i++)
+    {
+        array[i] = initialValue;
+    }
+    return array;
+}
+```
+
+### using statement
+Provides a convenient syntax that ensures the correct use of IDisposable objects. Beginning in C# 8.0, the using statement ensures the correct use of IAsyncDisposable objects.
+```
+string manyLines=@"This is line one
+This is line two
+Here is line three
+The penultimate line is line four
+This is the final, fifth line.";
+
+using (var reader = new StringReader(manyLines))
+{
+    string? item;
+    do {
+        item = reader.ReadLine();
+        Console.WriteLine(item);
+    } while(item != null);
+}
+```
+
+## General Notes
 ### Internet Control Message Protocol (ICMP)
 Is a networking protocol.  It is used to send error messages or to send query messages. You must have heard about "Ping". Ping uses ICMP to send echo request to the target host and get echo reply.
 
