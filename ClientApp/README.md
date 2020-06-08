@@ -104,6 +104,6 @@ Beacuse you'll be dealing with 3rd parties, you'll have to introduce one or more
 
 # Upto
 
-Page 129
+Page 149
 
-Improving the ICMPHealthCheck class
+health-check.component.html
