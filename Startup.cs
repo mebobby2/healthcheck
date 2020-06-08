@@ -18,6 +18,8 @@ namespace HealthCheck
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        // ConfigureServices is used to add services to our application
+        // We can use services via integrated DI once we add them inside of ConfigureServices
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
@@ -28,10 +30,14 @@ namespace HealthCheck
             });
 
             services.AddHealthChecks()
-                .AddCheck<ICMPHealthCheck>("ICMP");
+                .AddCheck("ICMP_01", new ICMPHealthCheck("www.ryadel.com", 100))
+                .AddCheck("ICMP_02", new ICMPHealthCheck("www.google.com", 100))
+                .AddCheck("ICMP_03", new ICMPHealthCheck("www.does-not-exist.com", 100));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // Configure method is used to set up middleware
+        // Manage HTTP request pipeline inside of Configure method
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -63,7 +69,7 @@ namespace HealthCheck
 
             app.UseRouting();
 
-            app.UseHealthChecks("/hc");
+            app.UseHealthChecks("/hc", new CustomHealthCheckOptions());
 
             app.UseEndpoints(endpoints =>
             {

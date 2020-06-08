@@ -8,8 +8,14 @@ namespace HealthCheck
 {
     public class ICMPHealthCheck : IHealthCheck
     {
-      private string Host = "www.does-not-exist.com";
-      private int Timeout = 300;
+      private string Host { get; set; }
+      private int Timeout { get; set; }
+
+      public ICMPHealthCheck(string host, int timeout)
+      {
+        Host = host;
+        Timeout = timeout;
+      }
 
       public async Task<HealthCheckResult> CheckHealthAsync(
         HealthCheckContext context,
@@ -23,17 +29,18 @@ namespace HealthCheck
                 switch (reply.Status)
                 {
                     case IPStatus.Success:
-                      return (reply.RoundtripTime > Timeout)
-                        ? HealthCheckResult.Degraded()
-                        : HealthCheckResult.Healthy();
+                      var msg = String.Format("IMCP to {0} took {1} ms.", Host, reply.RoundtripTime);
+                      return (reply.RoundtripTime > Timeout) ? HealthCheckResult.Degraded(msg) : HealthCheckResult.Healthy(msg);
                     default:
-                      return HealthCheckResult.Unhealthy();
+                      var err = String.Format("IMCP to {0} failed: {1}", Host, reply.Status);
+                      return HealthCheckResult.Unhealthy(err);
                 }
               }
           }
-          catch (Exception)
+          catch (Exception e)
           {
-              return HealthCheckResult.Unhealthy();
+              var err = String.Format("IMCP to {0} failed: {1}", Host, e.Message);
+              return HealthCheckResult.Unhealthy(err);
           }
         }
     }
